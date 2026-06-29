@@ -25,10 +25,11 @@ function fetchRemoteStateOnce() {
 // Synced state: tries MongoDB (via /api/state) first, falls back to
 // localStorage cache, falls back to seed data. Writes go to both
 // localStorage (instant, offline-safe) and MongoDB (debounced).
-function useSyncedState(key, seedFactory) {
+function useSyncedState(key, seedFactory, migrate) {
   const [state, setState] = useState(seedFactory);
   const [loaded, setLoaded] = useState(false);
   const saveTimer = useState({ current: null })[0];
+  const apply = (v) => (migrate ? migrate(v, seedFactory()) : v);
 
   useEffect(() => {
     let cancelled = false;
@@ -36,14 +37,14 @@ function useSyncedState(key, seedFactory) {
     // 1. instant local cache so UI isn't empty while we wait on network
     try {
       const raw = window.localStorage.getItem(key);
-      if (raw) setState(JSON.parse(raw));
+      if (raw) setState(apply(JSON.parse(raw)));
     } catch (e) {}
 
     // 2. then check MongoDB for the source of truth
     fetchRemoteStateOnce().then((remote) => {
       if (cancelled) return;
       if (remote && remote[key] !== undefined) {
-        setState(remote[key]);
+        setState(apply(remote[key]));
       }
       setLoaded(true);
     });
@@ -126,6 +127,20 @@ const JOB_BOARDS = [
 
 const STATUS_OPTS = ["saved", "applied", "interview", "offer", "rejected"];
 
+function migrateCs570(saved, freshSeed) {
+  if (!Array.isArray(saved)) return freshSeed;
+  const doneByTitle = {};
+  saved.forEach((ch) =>
+    (ch.topics || []).forEach((t) => {
+      doneByTitle[t.title] = t.done;
+    }),
+  );
+  return freshSeed.map((ch) => ({
+    ...ch,
+    topics: ch.topics.map((t) => ({ ...t, done: !!doneByTitle[t.title] })),
+  }));
+}
+
 export default function Home() {
   const [tab, setTab] = useState("today");
   const [leet, setLeet] = useSyncedState(LS_KEYS.leet, () => leetSeed);
@@ -135,11 +150,14 @@ export default function Home() {
       items: sec.items.map((t) => ({ title: t, done: false })),
     })),
   );
-  const [cs570, setCs570] = useSyncedState(LS_KEYS.cs570, () =>
-    cs570Seed.map((ch) => ({
-      ...ch,
-      topics: ch.topics.map((t) => ({ title: t, done: false })),
-    })),
+  const [cs570, setCs570] = useSyncedState(
+    LS_KEYS.cs570,
+    () =>
+      cs570Seed.map((ch) => ({
+        ...ch,
+        topics: ch.topics.map((t) => ({ title: t, done: false })),
+      })),
+    migrateCs570,
   );
   const [jobs, setJobs] = useSyncedState(LS_KEYS.jobs, () => []);
   const [jobForm, setJobForm] = useState({
@@ -544,9 +562,9 @@ export default function Home() {
             CS 570 — Erickson's Algorithms Topics ({cs570Done}/{cs570Total})
           </h2>
           <p className="sub" style={{ marginTop: -6 }}>
-            Mapped from your handout (Algorithms, Jeff Erickson). Check off
-            topics as lectures/readings cover them — keep this synced week to
-            week during your audit.
+            已經依照建議複習順序排好（地基 → 跟刷題經驗銜接的 →
+            沒碰過的硬骨頭最後留最多時間，圖論應用層放最後讀快）。Mapped from
+            your handout (Algorithms, Jeff Erickson).
           </p>
           <div className="progress-bar">
             <div
@@ -557,6 +575,10 @@ export default function Home() {
           <div className="grid-cols">
             {cs570.map((ch, ci) => {
               const d = ch.topics.filter((t) => t.done).length;
+              const priLabel =
+                { high: "🔴 重點優先", medium: "🟡 一般", low: "🟢 可讀快" }[
+                  ch.priority
+                ] || "";
               return (
                 <div
                   key={ch.ch}
@@ -567,9 +589,21 @@ export default function Home() {
                     padding: 12,
                   }}
                 >
-                  <div className="section-title">
-                    Ch.{ch.ch} — {ch.title} ({d}/{ch.topics.length})
+                  <div
+                    className="row-flex"
+                    style={{ justifyContent: "space-between" }}
+                  >
+                    <div className="section-title" style={{ margin: 0 }}>
+                      #{ci + 1} · Ch.{ch.ch} — {ch.title} ({d}/
+                      {ch.topics.length})
+                    </div>
+                    <span className={`badge ${ch.priority}`}>{priLabel}</span>
                   </div>
+                  {ch.note && (
+                    <div className="sub" style={{ margin: "4px 0 8px" }}>
+                      {ch.note}
+                    </div>
+                  )}
                   {ch.topics.map((t, ti) => (
                     <div
                       key={ti}

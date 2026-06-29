@@ -1,13 +1,132 @@
 [
-  {"ch": "0", "title": "Introduction", "topics": ["What is an algorithm?", "Multiplication algorithms", "Analyzing correctness & running time"]},
-  {"ch": "1", "title": "Recursion", "topics": ["Reductions / Simplify & Delegate", "Tower of Hanoi", "Mergesort & Quicksort (correctness + analysis)", "Recursion trees", "Linear-time selection (Quickselect)", "Fast multiplication", "Exponentiation"]},
-  {"ch": "2", "title": "Backtracking", "topics": ["Backtracking template", "Subset sum / n-queens style search", "Pruning strategies"]},
-  {"ch": "3", "title": "Dynamic Programming", "topics": ["Backtracking → Memoization → DP", "Smart recursion pattern", "Longest Increasing Subsequence", "Edit Distance", "Subset Sum", "Optimal Binary Search Trees", "DP on Trees"]},
-  {"ch": "4", "title": "Greedy Algorithms", "topics": ["Storing files on tape", "Scheduling classes (interval scheduling)", "General greedy pattern / exchange argument"]},
-  {"ch": "6", "title": "Depth-First Search", "topics": ["Preorder/Postorder, classifying edges", "Detecting cycles", "Topological sort", "DP on DAGs", "Strong connectivity (Kosaraju/Tarjan)"]},
-  {"ch": "7", "title": "Minimum Spanning Trees", "topics": ["Generic MST cut property", "Boruvka's Algorithm", "Prim's (Jarník's) Algorithm", "Kruskal's Algorithm"]},
-  {"ch": "8-9", "title": "Shortest Paths", "topics": ["Single-source shortest paths / Dijkstra", "Bellman-Ford", "All-pairs shortest paths", "Floyd-Warshall"]},
-  {"ch": "10", "title": "Maximum Flows & Minimum Cuts", "topics": ["Flow & cut definitions", "Max-flow min-cut theorem", "Ford-Fulkerson augmenting path", "Edmonds-Karp"]},
-  {"ch": "11", "title": "Applications of Flows and Cuts", "topics": ["Bipartite matching", "Reductions to flow problems"]},
-  {"ch": "12", "title": "NP-Hardness", "topics": ["Reductions & proving NP-hardness", "Common NP-hard problems", "Choosing the right reduction"]}
+  {
+    "ch": "1",
+    "title": "Recursion",
+    "priority": "high",
+    "note": "地基：recurrence tree / 複雜度證明，刷題不會教但考試常考",
+    "topics": [
+      "Reductions / Simplify & Delegate",
+      "Tower of Hanoi",
+      "Mergesort & Quicksort (correctness + analysis)",
+      "Recursion trees",
+      "Linear-time selection (Quickselect)",
+      "Fast multiplication",
+      "Exponentiation"
+    ]
+  },
+  {
+    "ch": "3",
+    "title": "Dynamic Programming",
+    "priority": "high",
+    "note": "跟你刷題經驗對得上，接續複習；重點是 backtracking→memo→DP 推導與證明",
+    "topics": [
+      "Backtracking → Memoization → DP",
+      "Smart recursion pattern",
+      "Longest Increasing Subsequence",
+      "Edit Distance",
+      "Subset Sum",
+      "Optimal Binary Search Trees",
+      "DP on Trees"
+    ]
+  },
+  {
+    "ch": "4",
+    "title": "Greedy Algorithms",
+    "priority": "medium",
+    "note": "刷題經驗較少，exchange argument 證明是新東西，值得花時間",
+    "topics": [
+      "Storing files on tape",
+      "Scheduling classes (interval scheduling)",
+      "General greedy pattern / exchange argument"
+    ]
+  },
+  {
+    "ch": "6",
+    "title": "Depth-First Search",
+    "priority": "low",
+    "note": "應用層已熟（Course Schedule等），可以讀快，重點放 Tarjan 證明細節",
+    "topics": [
+      "Preorder/Postorder, classifying edges",
+      "Detecting cycles",
+      "Topological sort",
+      "DP on DAGs",
+      "Strong connectivity (Kosaraju/Tarjan)"
+    ]
+  },
+  {
+    "ch": "7",
+    "title": "Minimum Spanning Trees",
+    "priority": "low",
+    "note": "Kruskal/Prim 已刷過，重點放 cut property 證明",
+    "topics": [
+      "Generic MST cut property",
+      "Boruvka's Algorithm",
+      "Prim's (Jarník's) Algorithm",
+      "Kruskal's Algorithm"
+    ]
+  },
+  {
+    "ch": "8-9",
+    "title": "Shortest Paths",
+    "priority": "low",
+    "note": "Dijkstra 已刷過，補 Bellman-Ford / Floyd-Warshall 證明",
+    "topics": [
+      "Single-source shortest paths / Dijkstra",
+      "Bellman-Ford",
+      "All-pairs shortest paths",
+      "Floyd-Warshall"
+    ]
+  },
+  {
+    "ch": "10",
+    "title": "Maximum Flows & Minimum Cuts",
+    "priority": "high",
+    "note": "刷題完全沒碰過，硬骨頭，留最多時間",
+    "topics": [
+      "Flow & cut definitions",
+      "Max-flow min-cut theorem",
+      "Ford-Fulkerson augmenting path",
+      "Edmonds-Karp"
+    ]
+  },
+  {
+    "ch": "11",
+    "title": "Applications of Flows and Cuts",
+    "priority": "high",
+    "note": "刷題完全沒碰過，硬骨頭，留最多時間",
+    "topics": ["Bipartite matching", "Reductions to flow problems"]
+  },
+  {
+    "ch": "12",
+    "title": "NP-Hardness",
+    "priority": "high",
+    "note": "申論題殺手：reduction 證明寫法，刷題完全沒練到",
+    "topics": [
+      "Reductions & proving NP-hardness",
+      "Common NP-hard problems",
+      "Choosing the right reduction"
+    ]
+  },
+  {
+    "ch": "2",
+    "title": "Backtracking",
+    "priority": "low",
+    "note": "AlgoMonster/LeetCode 已大量練習，當複習即可",
+    "topics": [
+      "Backtracking template",
+      "Subset sum / n-queens style search",
+      "Pruning strategies"
+    ]
+  },
+  {
+    "ch": "0",
+    "title": "Introduction",
+    "priority": "low",
+    "note": "暖身章節，快速掃過正確性/複雜度定義即可",
+    "topics": [
+      "What is an algorithm?",
+      "Multiplication algorithms",
+      "Analyzing correctness & running time"
+    ]
+  }
 ]
