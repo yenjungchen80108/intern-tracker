@@ -1,0 +1,13 @@
+[
+  {"ch": "0", "title": "Introduction", "topics": ["What is an algorithm?", "Multiplication algorithms", "Analyzing correctness & running time"]},
+  {"ch": "1", "title": "Recursion", "topics": ["Reductions / Simplify & Delegate", "Tower of Hanoi", "Mergesort & Quicksort (correctness + analysis)", "Recursion trees", "Linear-time selection (Quickselect)", "Fast multiplication", "Exponentiation"]},
+  {"ch": "2", "title": "Backtracking", "topics": ["Backtracking template", "Subset sum / n-queens style search", "Pruning strategies"]},
+  {"ch": "3", "title": "Dynamic Programming", "topics": ["Backtracking → Memoization → DP", "Smart recursion pattern", "Longest Increasing Subsequence", "Edit Distance", "Subset Sum", "Optimal Binary Search Trees", "DP on Trees"]},
+  {"ch": "4", "title": "Greedy Algorithms", "topics": ["Storing files on tape", "Scheduling classes (interval scheduling)", "General greedy pattern / exchange argument"]},
+  {"ch": "6", "title": "Depth-First Search", "topics": ["Preorder/Postorder, classifying edges", "Detecting cycles", "Topological sort", "DP on DAGs", "Strong connectivity (Kosaraju/Tarjan)"]},
+  {"ch": "7", "title": "Minimum Spanning Trees", "topics": ["Generic MST cut property", "Boruvka's Algorithm", "Prim's (Jarník's) Algorithm", "Kruskal's Algorithm"]},
+  {"ch": "8-9", "title": "Shortest Paths", "topics": ["Single-source shortest paths / Dijkstra", "Bellman-Ford", "All-pairs shortest paths", "Floyd-Warshall"]},
+  {"ch": "10", "title": "Maximum Flows & Minimum Cuts", "topics": ["Flow & cut definitions", "Max-flow min-cut theorem", "Ford-Fulkerson augmenting path", "Edmonds-Karp"]},
+  {"ch": "11", "title": "Applications of Flows and Cuts", "topics": ["Bipartite matching", "Reductions to flow problems"]},
+  {"ch": "12", "title": "NP-Hardness", "topics": ["Reductions & proving NP-hardness", "Common NP-hard problems", "Choosing the right reduction"]}
+]
