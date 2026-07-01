@@ -219,6 +219,11 @@ export default function Home() {
   function setLeetDate(id, date) {
     setLeet((prev) => prev.map((x) => (x.id === id ? { ...x, date } : x)));
   }
+  function setLeetDesc(id, description) {
+    setLeet((prev) =>
+      prev.map((x) => (x.id === id ? { ...x, description } : x)),
+    );
+  }
   function addLeetProblem(title) {
     if (!title.trim()) return;
     setLeet((prev) => {
@@ -458,6 +463,7 @@ export default function Home() {
                 <th>#</th>
                 <th>Problem</th>
                 <th>Date</th>
+                <th>Description（解法筆記）</th>
                 <th></th>
               </tr>
             </thead>
@@ -488,6 +494,21 @@ export default function Home() {
                       value={x.date || ""}
                       onChange={(e) => setLeetDate(x.id, e.target.value)}
                       style={{ width: 64, padding: "3px 6px" }}
+                    />
+                  </td>
+                  <td className="nostrike">
+                    <textarea
+                      placeholder=""
+                      value={x.description || ""}
+                      onChange={(e) => setLeetDesc(x.id, e.target.value)}
+                      rows={3}
+                      style={{
+                        width: "100%",
+                        minWidth: 240,
+                        padding: "4px 8px",
+                        resize: "vertical",
+                        lineHeight: "1.5",
+                      }}
                     />
                   </td>
                   <td className="nostrike">
